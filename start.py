@@ -1,5 +1,5 @@
 from helpers.params_helper import ParamsHelper
-from classificators.ordinary_cnn_classificator import OrdinaryCnnClassificator
+from classificators.vgg16_classificator import VGG16Classificator
 from classificators.base_classificator import BaseClassificator
 
 from os import listdir
@@ -16,10 +16,10 @@ if __name__ == '__main__':
         'number_train_samples': params_helper.calc_number_samples(train_data_dir),
         'number_validation_samples': params_helper.calc_number_samples(validation_data_dir),
         'epochs': 10,
-        'batch_size': 16
+        'batch_size': 8
     }
 
-    classificator = OrdinaryCnnClassificator(params)
+    classificator = VGG16Classificator(params)
 
     classificator.learn()
 
