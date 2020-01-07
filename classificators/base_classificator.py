@@ -1,4 +1,5 @@
 from keras.preprocessing.image import ImageDataGenerator
+from keras.applications.vgg16 import VGG16
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
@@ -10,7 +11,7 @@ import numpy
 
 class BaseClassificator():    
     def __init__(self, params):
-        self.__img_width, self.__img_height = 512, 512
+        self.__img_width, self.__img_height = params['size_image']
         self.__train_data_dir = params['train_data_dir']
         self.__validation_data_dir = params['validation_data_dir']
         self.__number_train_samples = params['number_train_samples']
@@ -55,28 +56,16 @@ class BaseClassificator():
         )
     
 
-    # Override
     def __build_model(self):
+        backend_model = VGG16(include_top = False, input_shape = self.__input_shape)
+
         self.__model = Sequential()
-        
-        self.__model.add(Conv2D(32, (2, 2), input_shape = self.__input_shape)) 
-        self.__model.add(Activation('relu')) 
-        self.__model.add(MaxPooling2D(pool_size =(2, 2))) 
-        
-        self.__model.add(Conv2D(32, (2, 2))) 
-        self.__model.add(Activation('relu')) 
-        self.__model.add(MaxPooling2D(pool_size =(2, 2))) 
-        
-        self.__model.add(Conv2D(64, (2, 2))) 
-        self.__model.add(Activation('relu')) 
-        self.__model.add(MaxPooling2D(pool_size =(2, 2))) 
-        
-        self.__model.add(Flatten()) 
-        self.__model.add(Dense(64)) 
-        self.__model.add(Activation('relu')) 
-        self.__model.add(Dropout(0.5)) 
+        for layer in backend_model.layers:
+            self.__model.add(layer)
+        self.__model.add(Flatten())
+
         self.__model.add(Dense(1)) 
-        self.__model.add(Activation('sigmoid'))        
+        self.__model.add(Activation('sigmoid'))
 
         self.__model.compile(loss = 'binary_crossentropy', optimizer = 'rmsprop', metrics = ['accuracy'])
 

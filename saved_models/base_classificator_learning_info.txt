@@ -1,0 +1,33 @@
+VGG16(include_top = False)
+Flatten()
+Dense(1)
+Activation('sigmoid')
+
+Total params: 14,739,777
+Trainable params: 14,739,777
+Non-trainable params: 0
+
+
+input_shape = 224x224
+batch_size = 1
+epochs = 3
+5216/5216 [==============================] - 300s 57ms/step - loss: 15.1212 - accuracy: 0.7314 - val_loss: 0.3473 - val_accuracy: 0.6250
+Epoch 2/3
+5216/5216 [==============================] - 297s 57ms/step - loss: 0.6426 - accuracy: 0.7416 - val_loss: 0.2911 - val_accuracy: 0.6250
+Epoch 3/3
+5216/5216 [==============================] - 296s 57ms/step - loss: 0.5711 - accuracy: 0.7429 - val_loss: 1.4646 - val_accuracy: 0.6250
+
+
+input_shape = 224x224
+batch_size = 8
+epochs = 3
+5216/5216 [==============================] - 1039s 199ms/step - loss: 3.2272 - accuracy: 0.8582 - val_loss: 0.2167 - val_accuracy: 0.8478
+Epoch 2/3
+5216/5216 [==============================] - 1008s 193ms/step - loss: 0.5808 - accuracy: 0.8960 - val_loss: 4.4454 - val_accuracy: 0.7821
+Epoch 3/3
+5216/5216 [==============================] - 1036s 199ms/step - loss: 1.0644 - accuracy: 0.8779 - val_loss: 1.7235 - val_accuracy: 0.6458
+
+
+input_shape = 512x512
+batch_size = 1
+epochs = 3

@@ -1,25 +1,25 @@
 from helpers.params_helper import ParamsHelper
-from classificators.vgg16_classificator import VGG16Classificator
 from classificators.base_classificator import BaseClassificator
 
 from os import listdir
 from os.path import join
 
 if __name__ == '__main__':
-    train_data_dir = 'datasets/v_data/train'
-    validation_data_dir = 'datasets/v_data/test'
+    train_data_dir = 'datasets/chest_xray/train'
+    validation_data_dir = 'datasets/chest_xray/test'
     params_helper = ParamsHelper()
 
     params = {
+        'size_image': (512, 512),
         'train_data_dir': train_data_dir, 
         'validation_data_dir': validation_data_dir,
         'number_train_samples': params_helper.calc_number_samples(train_data_dir),
         'number_validation_samples': params_helper.calc_number_samples(validation_data_dir),
-        'epochs': 10,
-        'batch_size': 8
+        'epochs': 3,
+        'batch_size': 1
     }
 
-    classificator = VGG16Classificator(params)
+    classificator = BaseClassificator(params)
 
     classificator.learn()
 
